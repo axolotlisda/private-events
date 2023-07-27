@@ -1,0 +1,4 @@
+<h2>Hello madlang people mabuhay</h2>
+<% @attended_events.each do |event| %>
+    <%= link_to event.name, event_path(event) %>
+<% end %>

@@ -1,0 +1,18 @@
+<%= link_to 'Users', users_path %>
+<%= link_to 'New Event', new_event_path%>
+
+
+<h2>All Events</h2>
+<% if @events.empty? %>
+  <b style='color:grey;'>No Events Found</b>
+<% else %>
+  <ul>
+    <% @events.each do |event| %>
+      <li><%=link_to event.name, event_path(event) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if user_signed_in? == false %>
+<%= link_to 'Sign in', new_user_session_path %>
+<% end %>
