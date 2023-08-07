@@ -1,7 +1,4 @@
-<%= link_to 'Users', users_path%>
-<%= link_to 'Events', events_path%>
-
-<%= form_with model: @event, url: events_path do |form| %>
+<%= form_with model: @event, url: event_path(@event), method: :patch do |form| %>
 
 <% form.hidden_field :user_id, value: current_user.id %>
 

@@ -8,7 +8,7 @@
 
   <p><strong>Date:</strong> <%= @event.date %></p>
   
-  <% if @event.time.nil? == false %>
+  <% if @event.time.present? %>
   <p><strong>Time:</strong> <%= @event.time.strftime("%I:%M %p") %></p>
   <% end %>
   <hr>
@@ -16,23 +16,38 @@
   <% if @event.private == true %>
     <p>This event is Private</p>
   <% end %>
-
   
 
 
-  <% unless current_user.attending?(@event) %>
-    <%= button_to 'Attend', attend_event_path(@event), method: :post %>
+  <%= form_with model: @invite, url: invite_event_path(@event), method: :post do |form| %>
+  
+  <%= form.hidden_field :event_id, value: @event.id %>
+
+  <%= form.label :invitee_id, 'Invitee' %>
+
+  <%= form.collection_select :invitee_id, User.where.not(id: current_user.id), :id, :email %>
+  
+
+  <%= form.submit 'Send Invitation' %>
+  
+
   <% end %>
+
+
+
+    <% if @event.private == false %>
+    <% unless current_user.attending?(@event) %>
+      <%= button_to 'Attend', attend_event_path(@event), method: :post %>
+    <% else %>
+      <%= button_to 'Unattend', attend_event_path(@event), method: :delete %>
+    <% end %>
+    <% end %>
 
   <hr>
+
 <h3>Attendees</h3>
-<% @attendings.includes(:attendee).each do |attending| %>
-  <% if attending.attendee %>
-    <%= attending.attendee.username %>
-  <% end %>
+<% @event.attendees.each do |attending| %>
+  <%= attending&.username %>
 <% end %>
 
-
-
-
-  <h5>created by: <%= @event.creator.username%></h5>
+  <h5>created by: <%= @event.creator.username%></h5>  

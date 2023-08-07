@@ -1,0 +1,25 @@
+<!-- app/views/invitations/index.html.erb -->
+<h1>Your Invitations</h1>
+<% if @invitations.any? %>
+  <ul>
+      <li>
+      <% @invitations.each do |invitation| %>
+        <strong>Event:</strong> <%= invitation.event.name %><br>
+        <strong>Inviter:</strong> <%= invitation.inviter.username %><br>
+        <!-- Display any additional information you want -->
+        <br>
+        <% if invitation.status == 'pending' %>
+          <%= button_to 'Accept', accept_invitation_path(invitation), method: :post %>
+          <%= button_to 'Decline', decline_invitation_path(invitation), method: :post %>
+      </li>
+        
+  </ul>
+        <% else %>
+          <p>No invitations found.</p>
+        <% end %>
+      <% end %>
+<% end %>
+
+
+
+

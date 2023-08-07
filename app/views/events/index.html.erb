@@ -1,5 +1,6 @@
 <%= link_to 'Users', users_path %>
-<%= link_to 'New Event', new_event_path%>
+<%= link_to 'New Event', new_event_path %>
+<%= link_to 'Invitations', invitations_path %>
 
 
 <h2>All Events</h2>
@@ -13,6 +14,41 @@
   </ul>
 <% end %>
 
+<h2>Past Events</h2>
+
+<% if @past_events.empty? %>
+  <h3>No Past Events Found</h3>
+<% else %>
+  <% @past_events.each do |past| %>
+    <strong>Name:</strong> <%= past.name %><br>
+    <strong>Date:</strong> <%= past.date %><br>
+    <br>
+  <% end %>
+<% end %>
+
+<h2>Upcoming Events</h2>
+<% if @upcoming_events.empty? %>
+<h4 style="color:grey;">No Upcoming Events</h4>
+<% else %>
+<% @upcoming_events.each do |upcoming| %>
+  <strong>Name: </strong><%= upcoming.name%>
+  <strong>Date: </strong><%= upcoming.date%> <br>
+<% end %>
+<% end %>
+
+<h2>Ongoing Events</h2>
+<% if @ongoing_events.empty? %>
+<h4 style="color:grey;">No Ongoing Events</h4>
+<% else %>
+<% @ongoing_events.each do |ongoing| %>
+  <strong>name: </strong><%= ongoing.name%>
+  <strong>date: </strong><%= ongoing.date%> <br>
+<% end %>
+<% end %>
+
+
+
 <% if user_signed_in? == false %>
 <%= link_to 'Sign in', new_user_session_path %>
 <% end %>
+

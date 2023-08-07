@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Event_id: 1
+  Inviter_id: 1
+  Invitee_id: 1
+
+two:
+  Event_id: 1
+  Inviter_id: 1
+  Invitee_id: 1

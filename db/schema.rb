@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_151924) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_02_102200) do
   create_table "attendings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,6 +33,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_151924) do
     t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
+  create_table "invites", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "inviter_id"
+    t.integer "invitee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,4 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_151924) do
 
   add_foreign_key "attendings", "events", column: "attended_event_id"
   add_foreign_key "attendings", "users", column: "attendee_id"
+  add_foreign_key "events", "users", column: "creator_id"
+  add_foreign_key "invites", "events"
+  add_foreign_key "invites", "users", column: "invitee_id"
+  add_foreign_key "invites", "users", column: "inviter_id"
 end

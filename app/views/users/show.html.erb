@@ -1,4 +1,6 @@
-<h2>Hello madlang people mabuhay</h2>
+<h2>Attended Events</h2>
+<ol>
 <% @attended_events.each do |event| %>
-    <%= link_to event.name, event_path(event) %>
+    <li><%= link_to event.name, event_path(event) %></li>
 <% end %>
+</ol>
